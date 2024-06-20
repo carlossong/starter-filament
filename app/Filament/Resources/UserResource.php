@@ -7,6 +7,7 @@ use App\Filament\Resources\UserResource\RelationManagers;
 use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Forms\FormsComponent;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -38,6 +39,10 @@ class UserResource extends Resource
                     ->dehydrateStateUsing(fn (string $state): string => Hash::make($state))
                     ->dehydrated(fn (?string $state): bool => filled($state))
                     ->required(fn (string $operation): bool => $operation === 'create'),
+                Forms\Components\Select::make('roles')
+                    ->relationship('roles', 'name')
+                    ->preload()
+                    ->multiple()
             ]);
     }
 
