@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -22,7 +21,22 @@ class DatabaseSeeder extends Seeder
             'email_verified_at' => now(),
         ]);
 
+        Permission::create(['name' => 'view_any_user']);
+        Permission::create(['name' => 'view_user']);
+        Permission::create(['name' => 'create_user']);
+        Permission::create(['name' => 'update_user']);
+        Permission::create(['name' => 'delete_user']);
+        Permission::create(['name' => 'restore_user']);
+        Permission::create(['name' => 'force_delete_user']);
+
         $role = Role::create(['name' => 'Admin']);
+
+        $permissions = Permission::all();
+
+        foreach ($permissions as $permission) {
+            $role->givePermissionTo($permission);
+        }
+
         $user->assignRole($role);
 
         User::factory(19)->create();
