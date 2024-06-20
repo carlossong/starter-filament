@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use App\Enums\PanelTypeEnum;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -31,11 +32,17 @@ class User extends Authenticatable implements FilamentUser
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'panel' => PanelTypeEnum::class,'panel' => PanelTypeEnum::class,
         ];
     }
 
     public function canAccessPanel(Panel $panel): bool
     {
-        return $this->hasRole('Admin');
+        if ($this->panel === PanelTypeEnum::APP && $panel->getId() === PanelTypeEnum::ADMIN->value) {
+
+            return false;
+        }
+        return true;
+
     }
 }

@@ -16,15 +16,17 @@ use Spatie\Permission\Models\Role;
 class RoleResource extends Resource
 {
     protected static ?string $model = Role::class;
-
     protected static ?string $navigationIcon = 'heroicon-o-finger-print';
     protected static ?string $navigationGroup = 'Settings';
+    protected static ?string $modelLabel = 'Função';
+    protected static ?string $pluralModelLabel = 'Funções';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
+                    ->label('Nome')
                     ->required()
                     ->unique(ignoreRecord: true)
                     ->maxLength(255),
@@ -40,6 +42,7 @@ class RoleResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
+                    ->label('Nome')
                     ->searchable(),
             ])
             ->filters([

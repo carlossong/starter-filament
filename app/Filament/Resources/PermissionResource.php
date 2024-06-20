@@ -16,15 +16,17 @@ use Spatie\Permission\Models\Permission;
 class PermissionResource extends Resource
 {
     protected static ?string $model = Permission::class;
-
     protected static ?string $navigationIcon = 'heroicon-o-key';
     protected static ?string $navigationGroup = 'Settings';
+    protected static ?string $modelLabel = 'Permissão';
+    protected static ?string $pluralModelLabel = 'permissões';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
+                    ->label('Nome')
                     ->required()
                     ->unique(ignoreRecord: true)
                     ->maxLength(255)
@@ -36,6 +38,7 @@ class PermissionResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
+                    ->label('Nome')
                     ->searchable(),
             ])
             ->filters([

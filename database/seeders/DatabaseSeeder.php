@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enums\PanelTypeEnum;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
@@ -19,6 +20,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'admin@admin.com',
             'password' => bcrypt('123Mudar'),
             'email_verified_at' => now(),
+            'panel' => PanelTypeEnum::ADMIN,
         ]);
 
         Permission::create(['name' => 'view_any_user']);
@@ -29,10 +31,10 @@ class DatabaseSeeder extends Seeder
         Permission::create(['name' => 'restore_user']);
         Permission::create(['name' => 'force_delete_user']);
 
-        $role = Role::create(['name' => 'Admin']);
-        Role::create(['name' => 'Maneger']);
-        Role::create(['name' => 'Financial']);
-        Role::create(['name' => 'Support']);
+        $role = Role::create(['name' => 'Administrador']);
+        Role::create(['name' => 'Gerente']);
+        Role::create(['name' => 'Financeiro']);
+        Role::create(['name' => 'Suporte']);
 
         $permissions = Permission::all();
 
@@ -42,6 +44,6 @@ class DatabaseSeeder extends Seeder
 
         $user->assignRole($role);
 
-        User::factory(999)->create();
+        User::factory(9)->create();
     }
 }
