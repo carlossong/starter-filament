@@ -30,6 +30,9 @@ class DatabaseSeeder extends Seeder
         Permission::create(['name' => 'force_delete_user']);
 
         $role = Role::create(['name' => 'Admin']);
+        Role::create(['name' => 'Maneger']);
+        Role::create(['name' => 'Financial']);
+        Role::create(['name' => 'Support']);
 
         $permissions = Permission::all();
 
@@ -39,6 +42,6 @@ class DatabaseSeeder extends Seeder
 
         $user->assignRole($role);
 
-        User::factory(19)->create();
+        User::factory(999)->create();
     }
 }
